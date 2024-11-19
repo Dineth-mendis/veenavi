@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Love for Veenavi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <style>
+        @keyframes backgroundFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        body {
+            background: linear-gradient(45deg, #1E40AF, #9333EA, #DB2777, #DC2626);
+            background-size: 400% 400%;
+            animation: backgroundFlow 15s ease infinite;
+        }
+        .heart-particle {
+            position: absolute;
+            pointer-events: none;
+            animation: float linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center overflow-hidden">
+    <div id="particles-container" class="fixed inset-0 z-0"></div>
+    
+    <div class="relative z-10 max-w-4xl mx-auto p-8 bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl transform transition-all hover:scale-[1.02]">
+        <div id="heartbeat-container" class="absolute inset-0 pointer-events-none"></div>
+        
+        <h1 class="text-6xl font-extrabold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-600 animate-pulse">
+            Veenavi: My Universe
+        </h1>
+
+        <div class="space-y-6 text-gray-900">
+            <blockquote class="text-2xl italic text-center mb-6 transform transition-transform hover:scale-105">
+                "Every heartbeat whispers your name"
+            </blockquote>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-100/50 p-6 rounded-xl shadow-xl hover:shadow-2xl transition-all">
+                    <h2 class="text-3xl font-bold text-blue-700 mb-4 animate-bounce">Her Essence</h2>
+                    <p class="text-lg">Veenavi's smile illuminates my world. Her eyes are constellations, 
+                    her voice a melody that resonates through my soul.</p>
+                </div>
+                <div class="bg-pink-100/50 p-6 rounded-xl shadow-xl hover:shadow-2xl transition-all">
+                    <h2 class="text-3xl font-bold text-pink-700 mb-4 animate-bounce">Our Love</h2>
+                    <p class="text-lg">She is my anchor and my wings, transforming every moment 
+                    into a beautiful symphony of shared dreams.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleTypes = ['❤️', '💕', '✨'];
+            
+            for (let i = 0; i < 100; i++) {
+                const particle = document.createElement('div');
+                particle.innerHTML = particleTypes[Math.floor(Math.random() * particleTypes.length)];
+                particle.classList.add('heart-particle');
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.fontSize = `${Math.random() * 30 + 10}px`;
+                particle.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        function createHeartbeatEffects() {
+            const container = document.getElementById('heartbeat-container');
+            
+            setInterval(() => {
+                const pulse = document.createElement('div');
+                pulse.style.position = 'absolute';
+                pulse.style.borderRadius = '50%';
+                pulse.style.backgroundColor = 'rgba(255, 0, 0, 0.1)';
+                pulse.style.width = '200px';
+                pulse.style.height = '200px';
+                pulse.style.left = `${Math.random() * (window.innerWidth - 200)}px`;
+                pulse.style.top = `${Math.random() * (window.innerHeight - 200)}px`;
+                
+                container.appendChild(pulse);
+
+                gsap.to(pulse, {
+                    scale: 5,
+                    opacity: 0,
+                    duration: 2,
+                    onComplete: () => container.removeChild(pulse)
+                });
+            }, 2000);
+        }
+
+        createParticles();
+        createHeartbeatEffects();
+    </script>
+</body>
+</html>
